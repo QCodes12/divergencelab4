@@ -17,7 +17,12 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "Upsertdataflow",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"ReadInvoices": {
+								"FileName": "\"Invoices1.CSV\""
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,

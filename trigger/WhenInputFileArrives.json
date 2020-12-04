@@ -1,0 +1,30 @@
+{
+	"name": "WhenInputFileArrives",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "LoopFilesPipeline",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"BatchEmailList": [
+						"quintan.gee@gmail.com"
+					]
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/input/blobs/",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/4b1c81a9-5028-4a6a-b0fc-51d52f44a3cd/resourceGroups/rgdivergenceqglab4/providers/Microsoft.Storage/storageAccounts/sadivergenceqglab4",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

@@ -23,7 +23,8 @@
 						"childItems"
 					],
 					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings"
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
@@ -198,8 +199,8 @@
 				}
 			},
 			{
-				"name": "Web1",
-				"type": "WebActivity",
+				"name": "ForEach2",
+				"type": "ForEach",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -208,24 +209,46 @@
 						]
 					}
 				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://prod-07.southcentralus.logic.azure.com:443/workflows/dc3119b8c4c24b2a8a2a29c1ad20cbb8/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EDRHcILx6r9NKUGdNFnU6JfMsn62lfyakHzlwi742Ik",
-					"method": "POST",
-					"body": {
-						"value": "{\n\"recipient\": \"quintan.gee@gmail.com\",\n\"run_id\": \"@{pipeline().RunId}\",\n\"trigger_time\": \"@{pipeline().TriggerTime}\",\n\"df_name\": \"@{pipeline().DataFactory}\" \n}",
+					"items": {
+						"value": "@pipeline().parameters.BatchEmailList",
 						"type": "Expression"
-					}
+					},
+					"activities": [
+						{
+							"name": "Web1",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-07.southcentralus.logic.azure.com:443/workflows/dc3119b8c4c24b2a8a2a29c1ad20cbb8/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EDRHcILx6r9NKUGdNFnU6JfMsn62lfyakHzlwi742Ik",
+								"method": "POST",
+								"body": {
+									"value": "{\n\"recipient\": \"@{item()}\",\n\"run_id\": \"@{pipeline().RunId}\",\n\"trigger_time\": \"@{pipeline().TriggerTime}\",\n\"df_name\": \"@{pipeline().DataFactory}\" \n}item()item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
+		"parameters": {
+			"BatchEmailList": {
+				"type": "array",
+				"defaultValue": [
+					"quintan.gee@gmail.com"
+				]
+			}
+		},
 		"annotations": []
 	}
 }

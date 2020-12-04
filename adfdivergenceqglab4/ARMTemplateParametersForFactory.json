@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfdivergenceqglab4"
+		},
+		"InvoicesBlob_connectionString": {
+			"value": ""
+		},
+		"InvoicesDB_connectionString": {
+			"value": ""
+		},
+		"WhenInputFileArrives_properties_LoopFilesPipeline_parameters_BatchEmailList": {
+			"value": [
+				"quintan.gee@gmail.com"
+			]
+		},
+		"WhenInputFileArrives_properties_typeProperties_scope": {
+			"value": "/subscriptions/4b1c81a9-5028-4a6a-b0fc-51d52f44a3cd/resourceGroups/rgdivergenceqglab4/providers/Microsoft.Storage/storageAccounts/sadivergenceqglab4"
+		}
+	}
+}
